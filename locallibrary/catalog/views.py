@@ -7,6 +7,11 @@ from .models import Book, Author, BookInstance, Genre
 def index(request):
     """View function for home page of site."""
 
+    # Number of visits to this view, as counted in the session variable.
+    num_visits = request.session.get('num_visits', 0)
+    num_visits += 1
+    request.session['num_visits'] = num_visits
+
     # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
@@ -22,6 +27,7 @@ def index(request):
         'num_instances': num_instances,
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
+        'num_visits': num_visits,
     }
 
     # Render the HTML template catalog/index.html with the data in the context variable
@@ -29,13 +35,13 @@ def index(request):
 
 
 from django.views import generic
+from django. http import HttpResponse
 
 class BookListView(generic.ListView):
     model = Book
 #    queryset = Book.objects.filter(title = 'Brave New World')  # Show only available books
 #    queryset = Book.objects.filter(genre__name='Fiction')  # Show only available books
-
-
+    
 class BookDetailView(generic.DetailView):
     model = Book
 
