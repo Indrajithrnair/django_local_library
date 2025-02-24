@@ -1,8 +1,3 @@
-.sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
-  }
 
   #logout-form {
     display: inline;
@@ -11,3 +6,5 @@
     padding: 0;
     margin: 0;
   }
+
+  
